@@ -5,7 +5,7 @@ import com.odontovision.clinica_odontologica.model.Dentista;
 import com.odontovision.clinica_odontologica.repository.DentistaRepository;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

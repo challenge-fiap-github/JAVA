@@ -1,12 +1,13 @@
 package com.odontovision.clinica_odontologica.controller;
 
 import com.odontovision.clinica_odontologica.dto.DentistaDTO;
+import com.odontovision.clinica_odontologica.exception.DentistaNotFoundException;
 import com.odontovision.clinica_odontologica.service.DentistaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -52,7 +53,7 @@ public class DentistaController {
     public ResponseEntity<DentistaDTO> buscarDentistaPorId(@PathVariable Long id) {
         return dentistaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new com.odontovision.clinica_odontologica.exception.DentistaNotFoundException(id));
+                .orElseThrow(() -> new DentistaNotFoundException(id));
     }
 
     /**
@@ -66,7 +67,7 @@ public class DentistaController {
     public ResponseEntity<DentistaDTO> atualizarDentista(@PathVariable Long id, @Valid @RequestBody DentistaDTO dentistaDTO) {
         return dentistaService.atualizarDentista(id, dentistaDTO)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new com.odontovision.clinica_odontologica.exception.DentistaNotFoundException(id));
+                .orElseThrow(() -> new DentistaNotFoundException(id));
     }
 
     /**
