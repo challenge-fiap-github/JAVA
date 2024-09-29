@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * </p>
  */
 @Repository
-public interface SinistroRepository extends JpaRepository<Sinistro, Long> {
+public interface SinistroRepository extends JpaRepository<Sinistro, Long>, GenericRepository<Sinistro, Long> {
 
 }

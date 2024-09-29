@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * </p>
  */
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long>, GenericRepository<Paciente, Long> {
 
 }

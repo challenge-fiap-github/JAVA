@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  */
 @Repository
-public interface ProcedimentoRepository extends JpaRepository<Procedimento, Long> {
+public interface ProcedimentoRepository extends JpaRepository<Procedimento, Long>, GenericRepository<Procedimento, Long> {
 
     /**
      * Lista procedimentos com risco de fraude.
