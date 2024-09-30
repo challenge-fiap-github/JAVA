@@ -1,9 +1,6 @@
 package com.odontovision.clinica_odontologica.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 
 import jakarta.persistence.*;
@@ -18,8 +15,7 @@ import java.time.LocalDate;
  * </p>
  */
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Diagnostico {
