@@ -1,6 +1,7 @@
-package com.odontovision.clinica_odontologica.repository;
+package com.odontovision.clinica_odontologica;
 
 import com.odontovision.clinica_odontologica.model.Paciente;
+import com.odontovision.clinica_odontologica.repository.PacienteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

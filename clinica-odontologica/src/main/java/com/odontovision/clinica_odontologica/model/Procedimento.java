@@ -1,7 +1,6 @@
 package com.odontovision.clinica_odontologica.model;
 
 import lombok.*;
-
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
