@@ -38,6 +38,7 @@ public class Dentista {
      * de classe (CRO - Conselho Regional de Odontologia).
      * </p>
      */
+    @Column(unique = true)
     private String numeroLicenca;
 
     /**

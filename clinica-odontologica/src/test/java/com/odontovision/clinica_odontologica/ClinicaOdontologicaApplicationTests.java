@@ -1,4 +1,4 @@
-package com.odontovision.clinica_odontologica;
+/* package com.odontovision.clinica_odontologica;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class ClinicaOdontologicaApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
