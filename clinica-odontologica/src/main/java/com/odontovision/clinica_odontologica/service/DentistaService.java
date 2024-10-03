@@ -32,6 +32,7 @@ public class DentistaService {
         return convertToDTO(salvo);
     }
 
+
     /**
      * Listar todos os dentistas.
      *
