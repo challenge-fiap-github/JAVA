@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  */
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Long>, GenericRepository<Paciente, Long> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     /**
      * Consulta personalizada para buscar pacientes pelo nome.
@@ -46,4 +46,14 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long>, Gener
      * @return Lista de pacientes que possuem o plano odontológico especificado.
      */
     List<Paciente> findByPlanoOdontologico(String planoOdontologico);
+
+    /**
+     * Busca todos os pacientes que estão ativos (campo ativo = true).
+     * <p>
+     * Utiliza Spring JPA Query Methods.
+     * </p>
+     *
+     * @return Lista de pacientes ativos.
+     */
+    List<Paciente> findByAtivoTrue();
 }
