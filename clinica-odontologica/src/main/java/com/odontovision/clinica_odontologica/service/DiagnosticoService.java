@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class DiagnosticoService {
@@ -32,7 +31,7 @@ public class DiagnosticoService {
     public List<DiagnosticoDTO> listarTodos() {
         return diagnosticoRepository.findAll().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();  // Usando toList() diretamente
     }
 
     /**
