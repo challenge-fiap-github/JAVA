@@ -14,7 +14,7 @@ import java.util.List;
  * </p>
  */
 @Repository
-public interface DentistaRepository extends JpaRepository<Dentista, Long>, GenericRepository<Dentista, Long> {
+public interface DentistaRepository extends JpaRepository<Dentista, Long> {
 
     /**
      * Consulta personalizada para buscar dentistas pelo nome.
@@ -35,4 +35,15 @@ public interface DentistaRepository extends JpaRepository<Dentista, Long>, Gener
      */
     @Query("SELECT d FROM Dentista d WHERE d.numeroLicenca = :numeroLicenca")
     List<Dentista> findDentistasByNumeroLicenca(String numeroLicenca);
+
+    /**
+     * Consulta para listar apenas dentistas ativos.
+     * <p>
+     * Esta consulta utiliza JPQL para retornar apenas os dentistas que estão ativos (soft delete).
+     * </p>
+     *
+     * @return Lista de dentistas ativos.
+     */
+    @Query("SELECT d FROM Dentista d WHERE d.ativo = true")
+    List<Dentista> findAllAtivos();
 }
