@@ -22,15 +22,16 @@ public class DiagnosticoDTO {
 
     /**
      * Identificador único do diagnóstico.
+     * <p>
+     * Este campo é opcional, pois será gerado automaticamente na criação de um novo diagnóstico.
+     * </p>
      */
     private Long id;
 
     /**
      * Tipo do diagnóstico realizado.
      * <p>
-     * Por exemplo: "Cárie", "Gengivite", "Periodontite", etc.
-     * </p>
-     * <p>
+     * Exemplos: "Cárie", "Gengivite", "Periodontite", etc.
      * Este campo é obrigatório e não pode estar em branco.
      * </p>
      */
@@ -49,10 +50,8 @@ public class DiagnosticoDTO {
     /**
      * Descrição detalhada do diagnóstico.
      * <p>
-     * Deve conter informações adicionais que complementem o tipo de diagnóstico,
-     * como observações do dentista ou detalhes específicos.
-     * </p>
-     * <p>
+     * Este campo deve conter informações adicionais sobre o diagnóstico,
+     * como observações do dentista ou detalhes específicos do tratamento.
      * Este campo é obrigatório e não pode estar em branco.
      * </p>
      */
@@ -65,5 +64,6 @@ public class DiagnosticoDTO {
      * Relaciona o diagnóstico a um paciente específico.
      * </p>
      */
+    @NotNull(message = "O paciente associado ao diagnóstico é obrigatório.")
     private Long pacienteId;
 }
