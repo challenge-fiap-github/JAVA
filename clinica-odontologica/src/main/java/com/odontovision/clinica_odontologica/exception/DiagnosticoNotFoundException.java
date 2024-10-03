@@ -18,4 +18,17 @@ public class DiagnosticoNotFoundException extends RuntimeException {
     public DiagnosticoNotFoundException(Long id) {
         super("Diagnóstico não encontrado com o ID: " + id);
     }
+
+    /**
+     * Construtor que aceita uma mensagem de erro personalizada.
+     * <p>
+     * Este construtor permite passar uma mensagem personalizada para o erro,
+     * oferecendo flexibilidade para diferentes cenários.
+     * </p>
+     *
+     * @param message Mensagem personalizada descrevendo o erro.
+     */
+    public DiagnosticoNotFoundException(String message) {
+        super(message);
+    }
 }
