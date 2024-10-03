@@ -17,4 +17,16 @@ public class SinistroNotFoundException extends RuntimeException {
     public SinistroNotFoundException(Long id) {
         super("Sinistro não encontrado com o ID: " + id);
     }
+
+    /**
+     * Construtor da exceção que aceita uma mensagem personalizada.
+     * <p>
+     * Esse construtor permite criar uma mensagem de erro personalizada para cenários específicos.
+     * </p>
+     *
+     * @param message Mensagem personalizada descrevendo o erro.
+     */
+    public SinistroNotFoundException(String message) {
+        super(message);
+    }
 }

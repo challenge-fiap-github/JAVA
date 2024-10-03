@@ -25,6 +25,25 @@ public class SinistroDTO {
     private Long id;
 
     /**
+     * Tipo do sinistro.
+     * <p>
+     * Exemplo: "Suspeita de Fraude", "Uso Indevido", etc.
+     * Este campo é obrigatório.
+     * </p>
+     */
+    @NotNull(message = "O tipo de sinistro é obrigatório.")
+    private String tipoSinistro;
+
+    /**
+     * Descrição detalhada do sinistro.
+     * <p>
+     * Pode incluir informações adicionais sobre o motivo ou contexto do sinistro.
+     * Este campo é opcional, mas pode ser usado para dar mais detalhes sobre o evento.
+     * </p>
+     */
+    private String descricao;
+
+    /**
      * Data em que o sinistro ocorreu.
      * <p>
      * Este campo é obrigatório.

@@ -1,6 +1,7 @@
 package com.odontovision.clinica_odontologica.controller;
 
 import com.odontovision.clinica_odontologica.dto.SinistroDTO;
+import com.odontovision.clinica_odontologica.exception.SinistroNotFoundException;
 import com.odontovision.clinica_odontologica.service.SinistroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,9 @@ import java.util.List;
 
 /**
  * Controlador REST para gerenciar operações relacionadas a sinistros.
+ * <p>
+ * Oferece endpoints para criar, listar, buscar, atualizar e deletar sinistros.
+ * </p>
  */
 @RestController
 @RequestMapping("/sinistros")
@@ -49,5 +53,43 @@ public class SinistroController {
         return ResponseEntity.ok(sinistros);
     }
 
-    // Métodos adicionais podem ser implementados conforme necessário.
+    /**
+     * Busca um sinistro por ID.
+     *
+     * @param id ID do sinistro.
+     * @return {@link SinistroDTO} encontrado.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<SinistroDTO> buscarSinistroPorId(@PathVariable Long id) {
+        SinistroDTO sinistro = sinistroService.buscarPorId(id)
+                .orElseThrow(() -> new SinistroNotFoundException(id));
+        return ResponseEntity.ok(sinistro);
+    }
+
+    /**
+     * Atualiza um sinistro existente.
+     *
+     * @param id          ID do sinistro a ser atualizado.
+     * @param sinistroDTO Dados atualizados do sinistro.
+     * @return {@link SinistroDTO} atualizado.
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<SinistroDTO> atualizarSinistro(@PathVariable Long id, @Valid @RequestBody SinistroDTO sinistroDTO) {
+        SinistroDTO atualizado = sinistroService.atualizarSinistro(id, sinistroDTO)
+                .orElseThrow(() -> new SinistroNotFoundException(id));
+        return ResponseEntity.ok(atualizado);
+    }
+
+    /**
+     * Deleta um sinistro pelo ID.
+     *
+     * @param id ID do sinistro a ser deletado.
+     * @return Resposta vazia com status adequado.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarSinistro(@PathVariable Long id) {
+        sinistroService.deletarSinistro(id)
+                .orElseThrow(() -> new SinistroNotFoundException(id));
+        return ResponseEntity.noContent().build();
+    }
 }

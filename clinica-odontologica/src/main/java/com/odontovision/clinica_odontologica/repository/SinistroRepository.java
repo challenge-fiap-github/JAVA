@@ -11,11 +11,11 @@ import java.util.List;
 /**
  * Repositório da entidade {@link Sinistro}.
  * <p>
- * Permite realizar operações CRUD na tabela de sinistros.
+ * Permite realizar operações CRUD e consultas personalizadas na tabela de sinistros.
  * </p>
  */
 @Repository
-public interface SinistroRepository extends JpaRepository<Sinistro, Long>, GenericRepository<Sinistro, Long> {
+public interface SinistroRepository extends JpaRepository<Sinistro, Long> {
 
     /**
      * Consulta personalizada para listar sinistros que ocorreram antes de uma data específica.
