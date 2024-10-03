@@ -1,9 +1,9 @@
 package com.odontovision.clinica_odontologica.model;
 
 import lombok.*;
-
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 /**
@@ -30,20 +30,27 @@ public class Diagnostico {
     /**
      * Tipo do diagnóstico realizado.
      * <p>
-     * Por exemplo: "Cárie", "Gengivite", "Periodontite", etc.
+     * Exemplos: "Cárie", "Gengivite", "Periodontite", etc.
+     * Este campo é obrigatório.
      * </p>
      */
+    @NotBlank(message = "O tipo de diagnóstico é obrigatório.")
     private String tipoDiagnostico;
 
     /**
      * Data em que o diagnóstico foi realizado.
+     * <p>
+     * A data não pode ser no futuro.
+     * </p>
      */
+    @PastOrPresent(message = "A data do diagnóstico deve ser no passado ou presente.")
     private LocalDate dataDiagnostico;
 
     /**
      * Descrição detalhada do diagnóstico.
      * <p>
      * Inclui observações adicionais, sintomas, recomendações e outras informações relevantes.
+     * Este campo é opcional, mas pode conter detalhes importantes.
      * </p>
      */
     private String descricao;
@@ -54,7 +61,7 @@ public class Diagnostico {
      * Representa o relacionamento muitos-para-um com a entidade {@link Paciente}.
      * </p>
      */
-    @ManyToOne
-    @JoinColumn(name = "paciente_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 }
