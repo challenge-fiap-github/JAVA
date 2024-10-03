@@ -1,14 +1,12 @@
 package com.odontovision.clinica_odontologica.service;
 
 import com.odontovision.clinica_odontologica.dto.PacienteDTO;
-import com.odontovision.clinica_odontologica.exception.PacienteNotFoundException;
 import com.odontovision.clinica_odontologica.model.Paciente;
 import com.odontovision.clinica_odontologica.repository.PacienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Serviço responsável pela lógica de negócios relacionada a {@link Paciente}.
@@ -47,7 +45,7 @@ public class PacienteService {
     public List<PacienteDTO> listarTodos() {
         return pacienteRepository.findByAtivoTrue().stream()
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList(); // Substituição sugerida
     }
 
     /**
@@ -85,14 +83,12 @@ public class PacienteService {
      * Desativa um paciente (soft delete).
      *
      * @param id ID do paciente a ser desativado.
-     * @return {@link Optional} vazio se o paciente foi desativado, ou vazio se não encontrado.
      */
-    public Optional<Void> desativarPaciente(Long id) {
-        return pacienteRepository.findById(id)
-                .map(paciente -> {
+    public void desativarPaciente(Long id) {
+        pacienteRepository.findById(id)
+                .ifPresent(paciente -> {
                     paciente.setAtivo(false);  // Soft delete: desativa o paciente
                     pacienteRepository.save(paciente);
-                    return null;
                 });
     }
 

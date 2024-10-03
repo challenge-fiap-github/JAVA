@@ -68,8 +68,8 @@ public class PacienteController {
     @GetMapping("/{id}")
     public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable Long id) {
         PacienteDTO paciente = pacienteService.buscarPorId(id)
-                .orElseThrow(() -> new PacienteNotFoundException(id));
-        return ResponseEntity.ok(paciente);
+                .orElseThrow(() -> new PacienteNotFoundException(id));  // Retorno sendo utilizado
+        return ResponseEntity.ok(paciente);  // Retorno ResponseEntity
     }
 
     /**
@@ -83,8 +83,8 @@ public class PacienteController {
     @CacheEvict(value = "pacientes", allEntries = true)
     public ResponseEntity<PacienteDTO> atualizarPaciente(@PathVariable Long id, @Valid @RequestBody PacienteDTO pacienteDTO) {
         PacienteDTO atualizado = pacienteService.atualizarPaciente(id, pacienteDTO)
-                .orElseThrow(() -> new PacienteNotFoundException(id));
-        return ResponseEntity.ok(atualizado);
+                .orElseThrow(() -> new PacienteNotFoundException(id));  // Retorno sendo utilizado
+        return ResponseEntity.ok(atualizado);  // Retorno atualizado
     }
 
     /**
@@ -92,16 +92,24 @@ public class PacienteController {
      * <p>
      * Em vez de remover o paciente do banco de dados, ele será marcado como inativo
      * utilizando soft delete.
+     * O método verifica se o paciente existe antes de realizar a desativação. Se o paciente
+     * não for encontrado, uma exceção {@link PacienteNotFoundException} é lançada.
      * </p>
      *
      * @param id ID do paciente a ser desativado.
-     * @return Resposta vazia com status adequado.
+     * @return Resposta vazia com status adequado (204 No Content).
      */
     @DeleteMapping("/{id}")
     @CacheEvict(value = "pacientes", allEntries = true)
     public ResponseEntity<Void> deletarPaciente(@PathVariable Long id) {
-        pacienteService.desativarPaciente(id)
-                .orElseThrow(() -> new PacienteNotFoundException(id));
+        // Verifica se o paciente existe; se não existir, lança exceção
+        pacienteService.buscarPorId(id)
+                .ifPresentOrElse(
+                        paciente -> pacienteService.desativarPaciente(id),
+                        () -> { throw new PacienteNotFoundException(id); }
+                );
+
+        // Retorna resposta 204 No Content
         return ResponseEntity.noContent().build();
     }
 }
