@@ -124,6 +124,16 @@ public class ProcedimentoService {
     }
 
     /**
+     * Verifica se um procedimento existe pelo ID.
+     *
+     * @param id ID do procedimento.
+     * @return true se o procedimento existe, false caso contrário.
+     */
+    public boolean existeProcedimento(Long id) {
+        return procedimentoRepository.existsById(id);
+    }
+
+    /**
      * Lista procedimentos com suspeita de fraude.
      *
      * @return Lista de {@link ProcedimentoDTO} com risco de fraude.

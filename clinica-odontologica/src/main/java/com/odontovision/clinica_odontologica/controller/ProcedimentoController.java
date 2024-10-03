@@ -90,10 +90,18 @@ public class ProcedimentoController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarProcedimento(@PathVariable Long id) {
-        procedimentoService.deletarProcedimento(id)
-                .orElseThrow(() -> new ProcedimentoNotFoundException(id));
+        // Verifica se o procedimento existe antes de tentar deletar
+        if (!procedimentoService.existeProcedimento(id)) {
+            throw new ProcedimentoNotFoundException(id);
+        }
+
+        // Realiza a deleção do procedimento
+        procedimentoService.deletarProcedimento(id);
+
+        // Retorna uma resposta de sucesso sem conteúdo (204 No Content)
         return ResponseEntity.noContent().build();
     }
+
 
     /**
      * Lista procedimentos com suspeita de fraude.
