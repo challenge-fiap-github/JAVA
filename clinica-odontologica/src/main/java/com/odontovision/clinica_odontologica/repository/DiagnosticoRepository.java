@@ -15,16 +15,16 @@ import java.util.List;
  * </p>
  */
 @Repository
-public interface DiagnosticoRepository extends JpaRepository<Diagnostico, Long>, GenericRepository<Diagnostico, Long> {
+public interface DiagnosticoRepository extends JpaRepository<Diagnostico, Long> {
 
     /**
      * Consulta personalizada para buscar diagnósticos pelo tipo.
      * <p>
-     * Utiliza Spring JPA Query Methods.
+     * Utiliza Spring JPA Query Methods para encontrar diagnósticos cujo tipo contenha a string fornecida.
      * </p>
      *
      * @param tipoDiagnostico Tipo do diagnóstico (ex: "Cárie", "Gengivite").
-     * @return Lista de diagnósticos com o tipo especificado.
+     * @return Lista de diagnósticos cujo tipo contenha o valor informado.
      */
     List<Diagnostico> findByTipoDiagnosticoContaining(String tipoDiagnostico);
 
@@ -36,5 +36,4 @@ public interface DiagnosticoRepository extends JpaRepository<Diagnostico, Long>,
      */
     @Query("SELECT d FROM Diagnostico d WHERE d.dataDiagnostico > :dataDiagnostico")
     List<Diagnostico> findDiagnosticosAfterDate(LocalDate dataDiagnostico);
-
 }
