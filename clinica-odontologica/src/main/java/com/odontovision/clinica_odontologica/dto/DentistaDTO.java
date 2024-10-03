@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -37,9 +38,11 @@ public class DentistaDTO {
     /**
      * Número de licença profissional do dentista.
      * <p>
-     * Este campo é obrigatório e não pode estar em branco.
+     * Este campo é obrigatório e deve seguir o padrão 'CRO' seguido de 5 dígitos.
+     * Exemplo: CRO12345
      * </p>
      */
     @NotBlank(message = "O número da licença é obrigatório.")
+    @Pattern(regexp = "^CRO\\d{5}$", message = "O número da licença deve seguir o formato 'CRO12345'.")
     private String numeroLicenca;
 }
