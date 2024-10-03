@@ -88,8 +88,9 @@ public class SinistroController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarSinistro(@PathVariable Long id) {
-        sinistroService.deletarSinistro(id)
-                .orElseThrow(() -> new SinistroNotFoundException(id));
+        sinistroService.deletarSinistro(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }
