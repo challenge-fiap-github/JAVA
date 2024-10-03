@@ -1,7 +1,6 @@
 package com.odontovision.clinica_odontologica.model;
 
 import lombok.*;
-
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -27,16 +26,28 @@ public class Sinistro {
     private Long id;
 
     /**
-     * Data em que o sinistro ocorreu.
+     * Tipo de sinistro.
+     * Exemplo: "Suspeita de Fraude", "Uso Indevido", etc.
      */
-    private LocalDate dataSinistro;
+    private String tipoSinistro;
+
+    /**
+     * Descrição detalhada do sinistro.
+     * Pode incluir informações adicionais sobre o motivo ou contexto do sinistro.
+     */
+    private String descricao;
+
+    /**
+     * Data em que o sinistro foi registrado.
+     */
+    private LocalDate dataOcorrencia;
 
     /**
      * Procedimento relacionado ao sinistro.
      * Representa o relacionamento muitos-para-um com a entidade {@link Procedimento}.
      */
     @ManyToOne
-    @JoinColumn(name = "procedimento_id")
+    @JoinColumn(name = "procedimento_id", nullable = false)
     private Procedimento procedimento;
 
     /**
@@ -44,7 +55,7 @@ public class Sinistro {
      * Representa o relacionamento muitos-para-um com a entidade {@link Dentista}.
      */
     @ManyToOne
-    @JoinColumn(name = "dentista_id")
+    @JoinColumn(name = "dentista_id", nullable = false)
     private Dentista dentista;
 
     /**
@@ -52,7 +63,7 @@ public class Sinistro {
      * Representa o relacionamento muitos-para-um com a entidade {@link Paciente}.
      */
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
+    @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
     /**
