@@ -14,6 +14,10 @@ import java.util.List;
 
 /**
  * Controlador REST para gerenciar operações relacionadas a pacientes.
+ * <p>
+ * Este controlador oferece endpoints para criar, listar, atualizar e deletar pacientes.
+ * Utiliza cache para melhorar a performance em consultas frequentes.
+ * </p>
  */
 @RestController
 @RequestMapping("/pacientes")
@@ -31,7 +35,7 @@ public class PacienteController {
     }
 
     /**
-     * Lista todos os pacientes com cache.
+     * Lista todos os pacientes ativos com cache.
      *
      * @return Lista de {@link PacienteDTO}.
      */
@@ -56,6 +60,19 @@ public class PacienteController {
     }
 
     /**
+     * Busca um paciente por ID.
+     *
+     * @param id ID do paciente a ser buscado.
+     * @return {@link PacienteDTO} encontrado.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable Long id) {
+        PacienteDTO paciente = pacienteService.buscarPorId(id)
+                .orElseThrow(() -> new PacienteNotFoundException(id));
+        return ResponseEntity.ok(paciente);
+    }
+
+    /**
      * Atualiza um paciente existente e limpa o cache.
      *
      * @param id          ID do paciente a ser atualizado.
@@ -71,15 +88,19 @@ public class PacienteController {
     }
 
     /**
-     * Deleta um paciente e limpa o cache.
+     * "Desativa" (soft delete) um paciente pelo ID e limpa o cache.
+     * <p>
+     * Em vez de remover o paciente do banco de dados, ele será marcado como inativo
+     * utilizando soft delete.
+     * </p>
      *
-     * @param id ID do paciente a ser deletado.
+     * @param id ID do paciente a ser desativado.
      * @return Resposta vazia com status adequado.
      */
     @DeleteMapping("/{id}")
     @CacheEvict(value = "pacientes", allEntries = true)
     public ResponseEntity<Void> deletarPaciente(@PathVariable Long id) {
-        pacienteService.deletarPaciente(id)
+        pacienteService.desativarPaciente(id)
                 .orElseThrow(() -> new PacienteNotFoundException(id));
         return ResponseEntity.noContent().build();
     }

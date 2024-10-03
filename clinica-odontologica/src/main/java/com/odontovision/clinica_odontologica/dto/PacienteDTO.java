@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull; // Vou usar futuramente em campos de validação
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -28,9 +30,19 @@ public class PacienteDTO {
      * Este campo é obrigatório e deve conter entre 2 e 100 caracteres.
      * </p>
      */
-    @NotNull(message = "O nome não pode ser nulo.")
+    @NotBlank(message = "O nome é obrigatório.")
     @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
     private String nome;
+
+    /**
+     * CPF do paciente.
+     * <p>
+     * Este campo é obrigatório e deve ser único, além de seguir o formato de CPF (###.###.###-##).
+     * </p>
+     */
+    @NotBlank(message = "O CPF é obrigatório.")
+    @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "O CPF deve estar no formato ###.###.###-##")
+    private String cpf;
 
     /**
      * Idade do paciente.
@@ -44,10 +56,17 @@ public class PacienteDTO {
     /**
      * Plano odontológico do paciente.
      * <p>
-     * Este campo é obrigatório e deve conter entre 3 e 50 caracteres.
+     * Este campo é opcional e deve conter entre 3 e 50 caracteres, se fornecido.
      * </p>
      */
-    @NotNull(message = "O plano odontológico não pode ser nulo.")
     @Size(min = 3, max = 50, message = "O plano odontológico deve ter entre 3 e 50 caracteres.")
     private String planoOdontologico;
+
+    /**
+     * Status ativo do paciente.
+     * <p>
+     * Indica se o paciente está ativo ou inativo no sistema (soft delete).
+     * </p>
+     */
+    private Boolean ativo;
 }

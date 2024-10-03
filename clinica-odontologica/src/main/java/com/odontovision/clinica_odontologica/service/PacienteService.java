@@ -40,12 +40,12 @@ public class PacienteService {
     }
 
     /**
-     * Lista todos os pacientes.
+     * Lista todos os pacientes ativos.
      *
      * @return Lista de {@link PacienteDTO}.
      */
     public List<PacienteDTO> listarTodos() {
-        return pacienteRepository.findAll().stream()
+        return pacienteRepository.findByAtivoTrue().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -58,6 +58,7 @@ public class PacienteService {
      */
     public Optional<PacienteDTO> buscarPorId(Long id) {
         return pacienteRepository.findById(id)
+                .filter(Paciente::getAtivo)  // Verifica se o paciente está ativo
                 .map(this::convertToDTO);
     }
 
@@ -70,6 +71,7 @@ public class PacienteService {
      */
     public Optional<PacienteDTO> atualizarPaciente(Long id, PacienteDTO pacienteDTO) {
         return pacienteRepository.findById(id)
+                .filter(Paciente::getAtivo)  // Verifica se o paciente está ativo
                 .map(paciente -> {
                     paciente.setNome(pacienteDTO.getNome());
                     paciente.setIdade(pacienteDTO.getIdade());
@@ -80,15 +82,16 @@ public class PacienteService {
     }
 
     /**
-     * Deleta um paciente pelo ID.
+     * Desativa um paciente (soft delete).
      *
-     * @param id ID do paciente a ser deletado.
-     * @return {@link Optional} vazio se o paciente foi deletado, ou vazio se não encontrado.
+     * @param id ID do paciente a ser desativado.
+     * @return {@link Optional} vazio se o paciente foi desativado, ou vazio se não encontrado.
      */
-    public Optional<Void> deletarPaciente(Long id) {
+    public Optional<Void> desativarPaciente(Long id) {
         return pacienteRepository.findById(id)
                 .map(paciente -> {
-                    pacienteRepository.delete(paciente);
+                    paciente.setAtivo(false);  // Soft delete: desativa o paciente
+                    pacienteRepository.save(paciente);
                     return null;
                 });
     }
@@ -103,8 +106,10 @@ public class PacienteService {
         Paciente paciente = new Paciente();
         paciente.setId(pacienteDTO.getId());
         paciente.setNome(pacienteDTO.getNome());
+        paciente.setCpf(pacienteDTO.getCpf());
         paciente.setIdade(pacienteDTO.getIdade());
         paciente.setPlanoOdontologico(pacienteDTO.getPlanoOdontologico());
+        paciente.setAtivo(true);  // Define paciente como ativo por padrão
         return paciente;
     }
 
@@ -118,6 +123,7 @@ public class PacienteService {
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setId(paciente.getId());
         pacienteDTO.setNome(paciente.getNome());
+        pacienteDTO.setCpf(paciente.getCpf());
         pacienteDTO.setIdade(paciente.getIdade());
         pacienteDTO.setPlanoOdontologico(paciente.getPlanoOdontologico());
         return pacienteDTO;
