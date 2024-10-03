@@ -19,12 +19,5 @@ public class DentistaNotFoundException extends RuntimeException {
         super("Dentista não encontrado com o ID: " + id);
     }
 
-    /**
-     * Construtor da exceção que aceita uma mensagem personalizada.
-     *
-     * @param message Mensagem personalizada descrevendo o erro.
-     */
-    public DentistaNotFoundException(String message) {
-        super(message);
-    }
+
 }
