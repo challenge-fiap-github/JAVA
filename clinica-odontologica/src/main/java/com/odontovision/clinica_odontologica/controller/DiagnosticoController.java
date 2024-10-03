@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
+/**
+ * Controlador REST responsável pelas operações com a entidade Diagnóstico.
+ * <p>
+ * Este controlador fornece endpoints para criar, listar, buscar, atualizar
+ * e deletar diagnósticos na aplicação.
+ * </p>
+ */
 @RestController
 @RequestMapping("/diagnosticos")
 public class DiagnosticoController {

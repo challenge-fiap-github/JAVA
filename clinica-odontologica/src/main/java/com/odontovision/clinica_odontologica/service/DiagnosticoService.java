@@ -73,8 +73,7 @@ public class DiagnosticoService {
                     diagnostico.setDescricao(diagnosticoDTO.getDescricao());
 
                     if (diagnosticoDTO.getPacienteId() != null) {
-                        Paciente paciente = pacienteRepository.findById(diagnosticoDTO.getPacienteId())
-                                .orElseThrow(() -> new PacienteNotFoundException(diagnosticoDTO.getPacienteId()));
+                        Paciente paciente = buscarPacientePorId(diagnosticoDTO.getPacienteId());
                         diagnostico.setPaciente(paciente);
                     }
 
@@ -126,11 +125,22 @@ public class DiagnosticoService {
         diagnostico.setDescricao(diagnosticoDTO.getDescricao());
 
         if (diagnosticoDTO.getPacienteId() != null) {
-            Paciente paciente = pacienteRepository.findById(diagnosticoDTO.getPacienteId())
-                    .orElseThrow(() -> new PacienteNotFoundException(diagnosticoDTO.getPacienteId()));
+            Paciente paciente = buscarPacientePorId(diagnosticoDTO.getPacienteId());
             diagnostico.setPaciente(paciente);
         }
 
         return diagnostico;
+    }
+
+    /**
+     * Método auxiliar para buscar o Paciente por ID.
+     *
+     * @param pacienteId ID do paciente.
+     * @return Paciente encontrado.
+     * @throws PacienteNotFoundException Se o paciente não for encontrado.
+     */
+    private Paciente buscarPacientePorId(Long pacienteId) {
+        return pacienteRepository.findById(pacienteId)
+                .orElseThrow(() -> new PacienteNotFoundException(pacienteId));
     }
 }
