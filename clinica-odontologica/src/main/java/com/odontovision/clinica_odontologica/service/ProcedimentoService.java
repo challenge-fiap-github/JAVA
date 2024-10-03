@@ -26,13 +26,6 @@ public class ProcedimentoService {
     private final PacienteRepository pacienteRepository;
     private final DentistaRepository dentistaRepository;
 
-    /**
-     * Construtor com injeção de dependência.
-     *
-     * @param procedimentoRepository Repositório de procedimentos.
-     * @param pacienteRepository     Repositório de pacientes.
-     * @param dentistaRepository     Repositório de dentistas.
-     */
     public ProcedimentoService(ProcedimentoRepository procedimentoRepository,
                                PacienteRepository pacienteRepository,
                                DentistaRepository dentistaRepository) {
@@ -41,80 +34,32 @@ public class ProcedimentoService {
         this.dentistaRepository = dentistaRepository;
     }
 
-    /**
-     * Salva um novo procedimento.
-     *
-     * @param procedimentoDTO Dados do procedimento a ser salvo.
-     * @return {@link ProcedimentoDTO} do procedimento salvo.
-     */
     public ProcedimentoDTO salvarProcedimento(ProcedimentoDTO procedimentoDTO) {
         Procedimento procedimento = convertToEntity(procedimentoDTO);
         Procedimento salvo = procedimentoRepository.save(procedimento);
         return convertToDTO(salvo);
     }
 
-    /**
-     * Lista todos os procedimentos.
-     *
-     * @return Lista de {@link ProcedimentoDTO}.
-     */
     public List<ProcedimentoDTO> listarTodos() {
         return procedimentoRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Busca um procedimento por ID.
-     *
-     * @param id ID do procedimento.
-     * @return {@link Optional} contendo o {@link ProcedimentoDTO}, se encontrado.
-     */
     public Optional<ProcedimentoDTO> buscarPorId(Long id) {
         return procedimentoRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    /**
-     * Atualiza um procedimento existente.
-     *
-     * @param id               ID do procedimento a ser atualizado.
-     * @param procedimentoDTO Dados atualizados do procedimento.
-     * @return {@link Optional} contendo o {@link ProcedimentoDTO} atualizado, se encontrado.
-     */
     public Optional<ProcedimentoDTO> atualizarProcedimento(Long id, ProcedimentoDTO procedimentoDTO) {
         return procedimentoRepository.findById(id)
                 .map(procedimento -> {
-                    procedimento.setTipoProcedimento(procedimentoDTO.getTipoProcedimento());
-                    procedimento.setDataProcedimento(procedimentoDTO.getDataProcedimento());
-                    procedimento.setCusto(procedimentoDTO.getCusto());
-                    procedimento.setRiscoFraude(procedimentoDTO.getRiscoFraude());
-
-                    // Valida e atualiza o paciente associado
-                    if (procedimentoDTO.getPacienteId() != null) {
-                        Paciente paciente = pacienteRepository.findById(procedimentoDTO.getPacienteId())
-                                .orElseThrow(() -> new PacienteNotFoundException(procedimentoDTO.getPacienteId()));
-                        procedimento.setPaciente(paciente);
-                    }
-
-                    // Valida e atualiza o dentista associado
-                    if (procedimentoDTO.getDentistaId() != null) {
-                        Dentista dentista = dentistaRepository.findById(procedimentoDTO.getDentistaId())
-                                .orElseThrow(() -> new DentistaNotFoundException(procedimentoDTO.getDentistaId()));
-                        procedimento.setDentista(dentista);
-                    }
-
-                    // Salva o procedimento atualizado
+                    atualizarProcedimentoComDTO(procedimento, procedimentoDTO);
                     Procedimento atualizado = procedimentoRepository.save(procedimento);
                     return convertToDTO(atualizado);
                 });
     }
 
-    /**
-     * Deleta um procedimento pelo ID.
-     *
-     * @param id ID do procedimento a ser deletado.
-     */
     public void deletarProcedimento(Long id) {
         if (procedimentoRepository.existsById(id)) {
             procedimentoRepository.deleteById(id);
@@ -123,33 +68,16 @@ public class ProcedimentoService {
         }
     }
 
-    /**
-     * Verifica se um procedimento existe pelo ID.
-     *
-     * @param id ID do procedimento.
-     * @return true se o procedimento existe, false caso contrário.
-     */
     public boolean existeProcedimento(Long id) {
         return procedimentoRepository.existsById(id);
     }
 
-    /**
-     * Lista procedimentos com suspeita de fraude.
-     *
-     * @return Lista de {@link ProcedimentoDTO} com risco de fraude.
-     */
     public List<ProcedimentoDTO> listarFraudes() {
         return procedimentoRepository.listarFraudes().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Converte um {@link Procedimento} para um {@link ProcedimentoDTO}.
-     *
-     * @param procedimento Entidade a ser convertida.
-     * @return Objeto {@link ProcedimentoDTO}.
-     */
     private ProcedimentoDTO convertToDTO(Procedimento procedimento) {
         ProcedimentoDTO dto = new ProcedimentoDTO();
         dto.setId(procedimento.getId());
@@ -162,34 +90,29 @@ public class ProcedimentoService {
         return dto;
     }
 
-    /**
-     * Converte um {@link ProcedimentoDTO} para uma entidade {@link Procedimento}.
-     *
-     * @param procedimentoDTO Objeto DTO a ser convertido.
-     * @return Entidade {@link Procedimento}.
-     */
     private Procedimento convertToEntity(ProcedimentoDTO procedimentoDTO) {
         Procedimento procedimento = new Procedimento();
-        procedimento.setId(procedimentoDTO.getId());
+        atualizarProcedimentoComDTO(procedimento, procedimentoDTO);
+        return procedimento;
+    }
+
+    // Novo método auxiliar para atualizar o Procedimento com os dados do DTO
+    private void atualizarProcedimentoComDTO(Procedimento procedimento, ProcedimentoDTO procedimentoDTO) {
         procedimento.setTipoProcedimento(procedimentoDTO.getTipoProcedimento());
         procedimento.setDataProcedimento(procedimentoDTO.getDataProcedimento());
         procedimento.setCusto(procedimentoDTO.getCusto());
         procedimento.setRiscoFraude(procedimentoDTO.getRiscoFraude());
 
-        // Associa o paciente ao procedimento
         if (procedimentoDTO.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(procedimentoDTO.getPacienteId())
                     .orElseThrow(() -> new PacienteNotFoundException(procedimentoDTO.getPacienteId()));
             procedimento.setPaciente(paciente);
         }
 
-        // Associa o dentista ao procedimento
         if (procedimentoDTO.getDentistaId() != null) {
             Dentista dentista = dentistaRepository.findById(procedimentoDTO.getDentistaId())
                     .orElseThrow(() -> new DentistaNotFoundException(procedimentoDTO.getDentistaId()));
             procedimento.setDentista(dentista);
         }
-
-        return procedimento;
     }
 }

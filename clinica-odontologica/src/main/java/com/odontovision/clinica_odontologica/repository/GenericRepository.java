@@ -6,7 +6,7 @@ import java.util.Optional;
 /**
  * Repositório genérico que define operações CRUD básicas.
  *
- * @param <T> Tipo da entidade.
+ * @param <T>  Tipo da entidade.
  * @param <ID> Tipo do identificador da entidade.
  */
 public interface GenericRepository<T, ID> {
@@ -40,4 +40,12 @@ public interface GenericRepository<T, ID> {
      * @param id o identificador da entidade a ser excluída.
      */
     void deleteById(ID id);
+
+    /**
+     * Verifica se uma entidade existe com o ID fornecido.
+     *
+     * @param id o identificador da entidade.
+     * @return true se a entidade existir, false caso contrário.
+     */
+    boolean existsById(ID id);
 }
