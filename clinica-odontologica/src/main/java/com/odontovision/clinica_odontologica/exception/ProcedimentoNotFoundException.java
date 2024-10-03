@@ -17,4 +17,17 @@ public class ProcedimentoNotFoundException extends RuntimeException {
     public ProcedimentoNotFoundException(Long id) {
         super("Procedimento não encontrado com o ID: " + id);
     }
+
+    /**
+     * Construtor da exceção que aceita uma mensagem personalizada.
+     * <p>
+     * Este construtor permite criar uma mensagem de erro personalizada para
+     * diferentes cenários de exceção.
+     * </p>
+     *
+     * @param message Mensagem personalizada descrevendo o erro.
+     */
+    public ProcedimentoNotFoundException(String message) {
+        super(message);
+    }
 }

@@ -11,6 +11,11 @@ import java.util.List;
 
 /**
  * Controlador REST para gerenciar operações relacionadas a procedimentos.
+ * <p>
+ * Este controlador oferece endpoints para criar, listar, buscar, atualizar e deletar
+ * procedimentos odontológicos. Também oferece um endpoint para listar procedimentos
+ * com suspeita de fraude.
+ * </p>
  */
 @RestController
 @RequestMapping("/procedimentos")
@@ -85,7 +90,8 @@ public class ProcedimentoController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarProcedimento(@PathVariable Long id) {
-        procedimentoService.deletarProcedimento(id);
+        procedimentoService.deletarProcedimento(id)
+                .orElseThrow(() -> new ProcedimentoNotFoundException(id));
         return ResponseEntity.noContent().build();
     }
 

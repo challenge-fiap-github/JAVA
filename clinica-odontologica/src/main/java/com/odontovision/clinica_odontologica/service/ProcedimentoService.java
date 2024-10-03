@@ -90,18 +90,21 @@ public class ProcedimentoService {
                     procedimento.setCusto(procedimentoDTO.getCusto());
                     procedimento.setRiscoFraude(procedimentoDTO.getRiscoFraude());
 
+                    // Valida e atualiza o paciente associado
                     if (procedimentoDTO.getPacienteId() != null) {
                         Paciente paciente = pacienteRepository.findById(procedimentoDTO.getPacienteId())
                                 .orElseThrow(() -> new PacienteNotFoundException(procedimentoDTO.getPacienteId()));
                         procedimento.setPaciente(paciente);
                     }
 
+                    // Valida e atualiza o dentista associado
                     if (procedimentoDTO.getDentistaId() != null) {
                         Dentista dentista = dentistaRepository.findById(procedimentoDTO.getDentistaId())
                                 .orElseThrow(() -> new DentistaNotFoundException(procedimentoDTO.getDentistaId()));
                         procedimento.setDentista(dentista);
                     }
 
+                    // Salva o procedimento atualizado
                     Procedimento atualizado = procedimentoRepository.save(procedimento);
                     return convertToDTO(atualizado);
                 });
@@ -163,12 +166,14 @@ public class ProcedimentoService {
         procedimento.setCusto(procedimentoDTO.getCusto());
         procedimento.setRiscoFraude(procedimentoDTO.getRiscoFraude());
 
+        // Associa o paciente ao procedimento
         if (procedimentoDTO.getPacienteId() != null) {
             Paciente paciente = pacienteRepository.findById(procedimentoDTO.getPacienteId())
                     .orElseThrow(() -> new PacienteNotFoundException(procedimentoDTO.getPacienteId()));
             procedimento.setPaciente(paciente);
         }
 
+        // Associa o dentista ao procedimento
         if (procedimentoDTO.getDentistaId() != null) {
             Dentista dentista = dentistaRepository.findById(procedimentoDTO.getDentistaId())
                     .orElseThrow(() -> new DentistaNotFoundException(procedimentoDTO.getDentistaId()));
