@@ -1,11 +1,14 @@
 package com.odontovision.clinica_odontologica.model;
 
 import lombok.*;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 /**
  * Entidade que representa um Sinistro na clínica odontológica.
+ * Esta classe mapeia a tabela "sinistro" no banco de dados e contém
+ * as informações dos sinistros registrados.
  */
 @Entity
 @Data
@@ -21,9 +24,20 @@ public class Sinistro {
     private Long id;
 
     /**
+     * Tipo do sinistro.
+     * Exemplo: Suspeita de fraude, uso indevido.
+     */
+    private String tipoSinistro;
+
+    /**
+     * Descrição detalhada do sinistro.
+     */
+    private String descricao;
+
+    /**
      * Data em que o sinistro ocorreu.
      */
-    private LocalDate dataSinistro; // Verifique se o nome está correto
+    private LocalDate dataSinistro;
 
     /**
      * Procedimento relacionado ao sinistro.
