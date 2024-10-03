@@ -20,7 +20,7 @@ public interface DiagnosticoRepository extends JpaRepository<Diagnostico, Long> 
     /**
      * Consulta personalizada para buscar diagnósticos pelo tipo.
      * <p>
-     * Utiliza Spring JPA Query Methods para encontrar diagnósticos cujo tipo contenha a string fornecida.
+     * Utiliza Spring JPA Query Methods para encontrar diagnósticos cujo tipo contenha o texto informado.
      * </p>
      *
      * @param tipoDiagnostico Tipo do diagnóstico (ex: "Cárie", "Gengivite").
@@ -36,4 +36,23 @@ public interface DiagnosticoRepository extends JpaRepository<Diagnostico, Long> 
      */
     @Query("SELECT d FROM Diagnostico d WHERE d.dataDiagnostico > :dataDiagnostico")
     List<Diagnostico> findDiagnosticosAfterDate(LocalDate dataDiagnostico);
+
+    /**
+     * Consulta personalizada para buscar diagnósticos por um paciente específico.
+     *
+     * @param pacienteId Identificador do paciente.
+     * @return Lista de diagnósticos associados ao paciente.
+     */
+    List<Diagnostico> findByPacienteId(Long pacienteId);
+
+    /**
+     * Consulta personalizada para buscar diagnósticos entre duas datas específicas.
+     *
+     * @param startDate Data inicial.
+     * @param endDate Data final.
+     * @return Lista de diagnósticos realizados no intervalo de datas informado.
+     */
+    @Query("SELECT d FROM Diagnostico d WHERE d.dataDiagnostico BETWEEN :startDate AND :endDate")
+    List<Diagnostico> findDiagnosticosBetweenDates(LocalDate startDate, LocalDate endDate);
+
 }
