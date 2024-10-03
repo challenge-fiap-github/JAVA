@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
+/**
+ * Controlador REST responsável pelas operações com a entidade Dentista.
+ * <p>
+ * Este controlador fornece endpoints para criar, listar, buscar,
+ * atualizar e desativar (soft delete) dentistas na aplicação.
+ * </p>
+ */
 @RestController
 @RequestMapping("/dentistas")
 public class DentistaController {
@@ -71,14 +78,17 @@ public class DentistaController {
     }
 
     /**
-     * Deletar um dentista.
+     * Desativar um dentista (soft delete).
+     * <p>
+     * O dentista não é removido fisicamente do sistema, mas marcado como inativo.
+     * </p>
      *
      * @param id ID do dentista.
      * @return Resposta vazia com status adequado.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarDentista(@PathVariable Long id) {
-        dentistaService.deletarDentista(id);
+        dentistaService.desativarDentista(id);  // Soft delete
         return ResponseEntity.noContent().build();
     }
 }

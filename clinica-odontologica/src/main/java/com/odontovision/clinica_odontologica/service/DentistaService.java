@@ -1,6 +1,7 @@
 package com.odontovision.clinica_odontologica.service;
 
 import com.odontovision.clinica_odontologica.dto.DentistaDTO;
+import com.odontovision.clinica_odontologica.exception.DentistaNotFoundException;
 import com.odontovision.clinica_odontologica.model.Dentista;
 import com.odontovision.clinica_odontologica.repository.DentistaRepository;
 import org.springframework.stereotype.Service;
@@ -72,15 +73,29 @@ public class DentistaService {
     }
 
     /**
-     * Deletar um dentista por ID.
+     * Desativar um dentista (soft delete), marcando-o como inativo.
      *
      * @param id ID do dentista.
      */
+    public void desativarDentista(Long id) {
+        Dentista dentista = dentistaRepository.findById(id)
+                .orElseThrow(() -> new DentistaNotFoundException(id));
+        dentista.setAtivo(false);  // Marca o dentista como inativo (soft delete)
+        dentistaRepository.save(dentista);  // Salva a alteração
+    }
+
+    /**
+     * Deletar fisicamente um dentista por ID (alternativa ao soft delete).
+     * @deprecated Recomendado utilizar {@link #desativarDentista(Long)} para soft delete.
+     *
+     * @param id ID do dentista.
+     */
+    @Deprecated
     public void deletarDentista(Long id) {
         if (dentistaRepository.existsById(id)) {
-            dentistaRepository.deleteById(id);
+            dentistaRepository.deleteById(id);  // Deleta fisicamente
         } else {
-            throw new com.odontovision.clinica_odontologica.exception.DentistaNotFoundException(id);
+            throw new DentistaNotFoundException(id);
         }
     }
 
