@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull; // Vou usar futuramente em campos de validação
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -68,5 +67,5 @@ public class PacienteDTO {
      * Indica se o paciente está ativo ou inativo no sistema (soft delete).
      * </p>
      */
-    private Boolean ativo;
+    private Boolean ativo = true;
 }

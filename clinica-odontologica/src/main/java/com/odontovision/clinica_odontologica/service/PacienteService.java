@@ -33,6 +33,7 @@ public class PacienteService {
      */
     public PacienteDTO salvarPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = convertToEntity(pacienteDTO);
+        paciente.setAtivo(true);  // Garante que o paciente seja ativo por padrão
         Paciente salvo = pacienteRepository.save(paciente);
         return convertToDTO(salvo);
     }
@@ -45,7 +46,7 @@ public class PacienteService {
     public List<PacienteDTO> listarTodos() {
         return pacienteRepository.findByAtivoTrue().stream()
                 .map(this::convertToDTO)
-                .toList(); // Substituição sugerida
+                .toList(); // Utilizando Stream.toList()
     }
 
     /**
@@ -122,6 +123,7 @@ public class PacienteService {
         pacienteDTO.setCpf(paciente.getCpf());
         pacienteDTO.setIdade(paciente.getIdade());
         pacienteDTO.setPlanoOdontologico(paciente.getPlanoOdontologico());
+        pacienteDTO.setAtivo(paciente.getAtivo());
         return pacienteDTO;
     }
 }
