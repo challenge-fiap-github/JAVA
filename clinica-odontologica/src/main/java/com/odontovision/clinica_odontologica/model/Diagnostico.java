@@ -1,23 +1,22 @@
 package com.odontovision.clinica_odontologica.model;
 
-import lombok.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
 
 /**
  * Entidade que representa um Diagnóstico na clínica odontológica.
  * <p>
  * Esta classe mapeia a tabela "diagnostico" no banco de dados e contém
- * as informações dos diagnósticos realizados em pacientes. Cada diagnóstico
- * está associado a um paciente específico.
+ * as informações dos diagnósticos realizados nos pacientes.
  * </p>
  */
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Diagnostico {
 
     /**
@@ -28,10 +27,9 @@ public class Diagnostico {
     private Long id;
 
     /**
-     * Tipo do diagnóstico realizado.
+     * Tipo de diagnóstico realizado.
      * <p>
-     * Exemplos: "Cárie", "Gengivite", "Periodontite", etc.
-     * Este campo é obrigatório.
+     * Exemplo: "Cárie", "Gengivite", etc. Este campo é obrigatório.
      * </p>
      */
     @NotBlank(message = "O tipo de diagnóstico é obrigatório.")
@@ -40,28 +38,28 @@ public class Diagnostico {
     /**
      * Data em que o diagnóstico foi realizado.
      * <p>
-     * A data não pode ser no futuro.
+     * Este campo é obrigatório e não pode ser nulo.
      * </p>
      */
-    @PastOrPresent(message = "A data do diagnóstico deve ser no passado ou presente.")
+    @NotNull(message = "A data do diagnóstico é obrigatória.")
     private LocalDate dataDiagnostico;
 
     /**
      * Descrição detalhada do diagnóstico.
      * <p>
-     * Inclui observações adicionais, sintomas, recomendações e outras informações relevantes.
-     * Este campo é opcional, mas pode conter detalhes importantes.
+     * Este campo deve conter observações adicionais sobre o diagnóstico.
      * </p>
      */
+    @NotBlank(message = "A descrição é obrigatória.")
     private String descricao;
 
     /**
-     * Paciente ao qual o diagnóstico está associado.
+     * Relacionamento muitos-para-um com a entidade Paciente.
      * <p>
-     * Representa o relacionamento muitos-para-um com a entidade {@link Paciente}.
+     * Cada diagnóstico está associado a um único paciente.
      * </p>
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = false)  // Chave estrangeira para Paciente
     private Paciente paciente;
 }

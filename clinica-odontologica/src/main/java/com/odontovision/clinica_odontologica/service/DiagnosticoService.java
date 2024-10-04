@@ -41,8 +41,13 @@ public class DiagnosticoService {
      * @return DiagnosticoDTO salvo.
      */
     public DiagnosticoDTO salvarDiagnostico(DiagnosticoDTO diagnosticoDTO) {
+        // Usar o método convertToEntity para criar a entidade Diagnostico
         Diagnostico diagnostico = convertToEntity(diagnosticoDTO);
+
+        // Salvar o diagnóstico no banco de dados
         Diagnostico salvo = diagnosticoRepository.save(diagnostico);
+
+        // Retornar o DTO com os dados do diagnóstico salvo
         return convertToDTO(salvo);
     }
 
@@ -117,16 +122,17 @@ public class DiagnosticoService {
      * @return Entidade Diagnostico.
      */
     private Diagnostico convertToEntity(DiagnosticoDTO diagnosticoDTO) {
+        // Buscar o paciente pelo ID fornecido no DTO
+        Paciente paciente = pacienteRepository.findById(diagnosticoDTO.getPacienteId())
+                .orElseThrow(() -> new PacienteNotFoundException(diagnosticoDTO.getPacienteId()));
+
+        // Criar uma nova entidade Diagnostico e associar os dados
         Diagnostico diagnostico = new Diagnostico();
         diagnostico.setId(diagnosticoDTO.getId());
         diagnostico.setTipoDiagnostico(diagnosticoDTO.getTipoDiagnostico());
         diagnostico.setDataDiagnostico(diagnosticoDTO.getDataDiagnostico());
         diagnostico.setDescricao(diagnosticoDTO.getDescricao());
-
-        if (diagnosticoDTO.getPacienteId() != null) {
-            Paciente paciente = buscarPacientePorId(diagnosticoDTO.getPacienteId());
-            diagnostico.setPaciente(paciente);
-        }
+        diagnostico.setPaciente(paciente);  // Associar o paciente ao diagnóstico
 
         return diagnostico;
     }
