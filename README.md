@@ -89,7 +89,7 @@ Para rodar a aplicação **OdontoVision**, siga as instruções abaixo:
 
 Link para o vídeo que apresenta a **Proposta Tecnológica**, o **público-alvo** da aplicação e os **problemas** que a solução se propõe a resolver:
 
-[Vídeo de Apresentação](<link_do_video>)
+[Vídeo de Apresentação](https://youtu.be/z_UKX_S9g50)
 
 ---
 
