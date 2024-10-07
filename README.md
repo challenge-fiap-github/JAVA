@@ -13,6 +13,8 @@ O grupo **OdontoVision** é composto por três integrantes, que se organizaram d
 - **Luis Henrique Oliveira da Silva (552692)**: Responsável pelas áreas de **Banco de Dados**, **DevOps** e **Mobile**. Luis foi o encarregado de configurar os pipelines de integração contínua e a estrutura de banco de dados.
 - **Matheus Duarte Oliveira (554199)**: Responsável pelas áreas de **Inteligência Artificial** e **C# com .NET**. Matheus implementou os algoritmos de análise preditiva e a lógica de detecção de fraudes no projeto.
 
+A partir do dia 05/09/2024 até 12/09/2024, concentramos nossos esforços em pesquisas e discussões com os professores para alinhar e validar nossas ideias. Durante esse período, utilizamos o Miro para organizar as principais etapas do projeto. Entre os dias 12/09/2024 e 22/09/2024, a Sabrina ficou responsável por desenvolver a estrutura macro do Java Advanced, focando no back-end da aplicação. Entretanto, devido a alguns problemas técnicos, os commits no repositório só foram realizados no dia 02/10/2024.
+
 ---
 
 ## 3. Instruções para Executar a Aplicação
@@ -112,6 +114,7 @@ Link para o vídeo que apresenta a **Proposta Tecnológica**, o **público-alvo*
 - **GET** `/api/sinistros/{id}`: Buscar sinistro por ID.
 - **PUT** `/api/sinistros/{id}`: Atualizar informações de um sinistro.
 - **DELETE** `/api/sinistros/{id}`: Deletar sinistro.
+
 
 
 Este README foi desenvolvido para fornecer todas as informações necessárias para execução e entendimento da aplicação **OdontoVision**.
