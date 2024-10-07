@@ -17,7 +17,23 @@ A partir do dia 05/09/2024 até 12/09/2024, concentramos nossos esforços em pes
 
 ---
 
-## 3. Instruções para Executar a Aplicação
+### 3. Relacionamentos das Entidades
+
+O projeto **OdontoVision** conta com um conjunto de entidades inter-relacionadas para garantir uma gestão eficaz dos processos clínicos. As principais entidades do sistema, como **Dentista**, **Paciente**, **Diagnóstico**, **Procedimento** e **Sinistro**, estão conectadas de forma a proporcionar um fluxo de dados consistente e confiável:
+
+- A entidade **Paciente** se relaciona diretamente com **Diagnóstico** e **Procedimento**, permitindo que a clínica acompanhe todo o histórico clínico de cada paciente.
+- A entidade **Dentista** está associada a **Procedimento** e **Sinistro**, possibilitando o registro detalhado de quem realizou os procedimentos e sua eventual relação com um sinistro.
+- A entidade **Procedimento** é um ponto central, conectando **Dentista**, **Paciente** e **Sinistro**, fornecendo um panorama completo do atendimento odontológico prestado.
+- A entidade **Sinistro** está relacionada com **Dentista**, **Paciente** e **Procedimento**, permitindo a rastreabilidade de possíveis fraudes ou uso indevido dos serviços.
+
+Esses relacionamentos garantem que o sistema possa gerenciar os dados de forma integrada, oferecendo relatórios e análises mais precisas para a tomada de decisões.
+
+### Próximos Passos - Sprint 2
+
+Estamos planejando aprimorar o projeto para a **Sprint 2**, com melhorias em diversas áreas, como a implementação de novos recursos, otimização da arquitetura de back-end e a adição de funcionalidades mais robustas, como uma camada de segurança aprimorada e um sistema de relatórios avançados. Esses aprimoramentos visam melhorar ainda mais a eficiência e usabilidade da aplicação, garantindo uma experiência mais completa para os usuários.
+
+
+## 4. Instruções para Executar a Aplicação
 
 Para rodar a aplicação **OdontoVision**, siga as instruções abaixo:
 
