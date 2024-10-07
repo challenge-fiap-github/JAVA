@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "7c50debf-a2b0-4d18-aaaa-16de6dbee5d5",
+		"name": "clinica-odontologica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35000124"
+	},
+	"item": [
+		{
+			"name": "Dentista",
+			"item": [
+				{
+					"name": "criarDentista",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Dra. Beatriz Castro\",\r\n    \"numeroLicenca\": \"CRO23456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentistas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentistas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarDentista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentistas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentistas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarDentista",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Dr. Ana Silva\",\r\n    \"numeroLicenca\": \"CRO98765\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentistas/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentistas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "buscarDentistaPorId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/dentistas/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentistas",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### Entidade **Dentista**\n\nA classe **Dentista** representa um dentista dentro do sistema de gestão da clínica odontológica. Essa entidade é mapeada para a tabela `dentistas` no banco de dados e contém todas as informações essenciais sobre os profissionais de odontologia que atuam na clínica.\n\n#### Atributos Principais:\n\n1. **ID**: Um identificador único gerado automaticamente para cada dentista cadastrado no sistema.\n    \n    - Tipo: `Long`\n        \n    - Geração: Automática, utilizando a estratégia de incremento.\n        \n2. **Nome**: Nome completo do dentista.\n    \n    - Regras de validação:\n        \n        - O nome é obrigatório e não pode estar em branco.\n            \n        - Deve conter entre 3 e 100 caracteres.\n            \n3. **Número de Licença Profissional (CRO)**: O número de licença que o dentista utiliza para atuar profissionalmente, seguindo o padrão \"CRO12345\".\n    \n    - Regras de validação:\n        \n        - Obrigatório.\n            \n        - Deve ser único e seguir o formato \"CRO\" seguido de 5 números.\n            \n\n#### Relacionamentos:\n\n- Um dentista pode estar associado a múltiplos procedimentos realizados na clínica. Esse relacionamento permite que o sistema registre quais procedimentos foram realizados por cada dentista.\n    \n\n#### Validações:\n\n- A entidade possui validações utilizando **Jakarta Bean Validation**, garantindo que os dados fornecidos sejam válidos no momento do cadastro ou atualização. Por exemplo:\n    \n    - O nome do dentista é validado para não ser vazio e deve conter entre 3 a 100 caracteres.\n        \n    - O número da licença (CRO) deve seguir um formato específico, e essa regra é aplicada diretamente no campo utilizando expressões regulares.\n        \n\n#### Funcionalidade no Sistema:\n\n- A entidade **Dentista** é responsável por armazenar todas as informações relevantes sobre os dentistas da clínica.\n    \n- Ela facilita o gerenciamento de dados de cada profissional, como a criação, atualização e exclusão de dentistas, além de fornecer a possibilidade de listar todos os dentistas cadastrados."
+		},
+		{
+			"name": "Diagnostico",
+			"item": [
+				{
+					"name": "criarDiagnostico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tipoDiagnostico\": \"Carie\",\r\n  \"dataDiagnostico\": \"2024-09-08\",\r\n  \"descricao\": \"Carie diagnosticada na consulta.\",\r\n  \"pacienteId\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/diagnosticos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diagnosticos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarDiagnosticos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diagnosticos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diagnosticos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarDiagnosticos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diagnosticos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diagnosticos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarDiagnostico",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoDiagnostico\": \"Gengivite\",\r\n    \"dataDiagnostico\": \"2024-10-04\",\r\n    \"descricao\": \"Paciente apresenta inflamação gengival.\",\r\n    \"pacienteId\": 1\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/diagnosticos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diagnosticos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarDiagnostico",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/diagnosticos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"diagnosticos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### Entidade **Diagnóstico**\n\nA classe **Diagnóstico** representa um diagnóstico feito dentro do sistema de gestão da clínica odontológica. Essa entidade é mapeada para a tabela `diagnosticos` no banco de dados e contém todas as informações detalhadas sobre os diagnósticos realizados nos pacientes.\n\n#### Atributos Principais:\n\n1. **ID**: Um identificador único gerado automaticamente para cada diagnóstico realizado no sistema.\n    \n    - Tipo: `Long`\n        \n    - Geração: Automática, utilizando a estratégia de incremento.\n        \n2. **Tipo de Diagnóstico**: Tipo do diagnóstico feito no paciente.\n    \n    - Exemplo: \"Cárie\", \"Gengivite\", entre outros.\n        \n    - Regras de validação:\n        \n        - O campo é obrigatório e não pode estar em branco.\n            \n3. **Data do Diagnóstico**: Data em que o diagnóstico foi realizado.\n    \n    - Regras de validação:\n        \n        - Obrigatório e não pode ser nulo.\n            \n4. **Descrição**: Descrição detalhada do diagnóstico, contendo observações adicionais feitas pelo dentista.\n    \n    - Regras de validação:\n        \n        - O campo é obrigatório e deve conter informações relevantes sobre o diagnóstico.\n            \n\n#### Relacionamentos:\n\n- Um diagnóstico está relacionado a um **paciente** em um relacionamento muitos-para-um, onde cada paciente pode ter vários diagnósticos, mas cada diagnóstico pertence a um único paciente.\n    \n- A entidade também pode estar associada a procedimentos futuros baseados no diagnóstico realizado.\n    \n\n#### Validações:\n\n- A entidade **Diagnóstico** possui validações utilizando **Jakarta Bean Validation**, garantindo a integridade dos dados fornecidos no momento do cadastro ou atualização.\n    \n    - O tipo do diagnóstico e a descrição são campos obrigatórios e não podem ser nulos ou vazios.\n        \n    - A data do diagnóstico é obrigatória e deve ser uma data válida.\n        \n\n#### Funcionalidade no Sistema:\n\n- A entidade **Diagnóstico** permite o gerenciamento completo dos diagnósticos realizados nos pacientes da clínica, oferecendo operações como criação, listagem, atualização e exclusão de diagnósticos.\n    \n- Além disso, o sistema pode gerar relatórios ou estatísticas baseadas nos tipos de diagnósticos mais comuns realizados na clínica."
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "criarPacientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Luan Rodrigues\",\r\n  \"cpf\": \"999.666.333-11\",\r\n  \"idade\": 36,\r\n  \"planoOdontologico\": \"Odonto Premium\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarPacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPacientePorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"João da Silva Atualizado\",\r\n  \"cpf\": \"123.456.789-01\",\r\n  \"idade\": 36,\r\n  \"planoOdontologico\": \"Odonto VIP Plus\",\r\n  \"ativo\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarPaciente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### Entidade **Paciente**\n\nA classe **Paciente** representa um paciente dentro do sistema de gestão da clínica odontológica. Essa entidade é mapeada para a tabela `pacientes` no banco de dados e contém todas as informações essenciais dos pacientes que são atendidos pela clínica.\n\n#### Atributos Principais:\n\n1. **ID**: Um identificador único gerado automaticamente para cada paciente cadastrado no sistema.\n    \n    - Tipo: `Long`\n        \n    - Geração: Automática, utilizando a estratégia de incremento.\n        \n2. **Nome**: Nome completo do paciente.\n    \n    - Regras de validação:\n        \n        - O nome é obrigatório e não pode estar em branco.\n            \n        - Deve conter entre 3 e 100 caracteres.\n            \n3. **CPF**: Número de CPF (Cadastro de Pessoa Física) do paciente.\n    \n    - Regras de validação:\n        \n        - Obrigatório.\n            \n        - Deve ser único no sistema.\n            \n        - O número do CPF deve seguir o formato `###.###.###-##` (incluindo pontos e hífen).\n            \n4. **Idade**: Idade do paciente.\n    \n    - Regras de validação:\n        \n        - A idade é obrigatória e deve ser um número inteiro positivo.\n            \n\n#### Relacionamentos:\n\n- Um paciente pode estar associado a múltiplos diagnósticos e procedimentos realizados pela clínica. Esses relacionamentos permitem o registro e acompanhamento detalhado de todos os atendimentos realizados no paciente.\n    \n\n#### Validações:\n\n- A entidade **Paciente** possui validações utilizando **Jakarta Bean Validation**, garantindo a consistência dos dados fornecidos no momento do cadastro ou atualização.\n    \n    - O nome do paciente é validado para ter um tamanho mínimo e máximo de caracteres.\n        \n    - O CPF segue um padrão específico para garantir a validade e unicidade do documento no sistema.\n        \n    - A idade deve ser um valor positivo e não nulo.\n        \n\n#### Funcionalidade no Sistema:\n\n- A entidade **Paciente** é responsável por armazenar todas as informações relevantes sobre os pacientes atendidos pela clínica.\n    \n- Ela permite que o sistema realize operações como criação, listagem, atualização e exclusão de pacientes, além de associar o paciente a diagnósticos e procedimentos realizados."
+		},
+		{
+			"name": "Procedimento",
+			"item": [
+				{
+					"name": "criarProcedimento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoProcedimento\": \"Profilaxia\",\n    \"dataProcedimento\": \"2024-05-10\",\n    \"custo\": 100.0,\n    \"riscoFraude\": false,\n    \"pacienteId\": 4,\n    \"dentistaId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/procedimentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarProcedimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/procedimentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarProcedimentoPorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/procedimentos/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarProcedimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipoProcedimento\": \"Obturação\",\n    \"dataProcedimento\": \"2024-04-01\",\n    \"custo\": 300.0,\n    \"riscoFraude\": false,\n    \"pacienteId\": 3,\n    \"dentistaId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/procedimentos/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarProcedimento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/procedimentos/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "suspeitaFraude",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/procedimentos/suspeitas-fraude",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"procedimentos",
+								"suspeitas-fraude"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### Entidade **Procedimento**\n\nA classe **Procedimento** representa os procedimentos realizados na clínica odontológica. Essa entidade é mapeada para a tabela `procedimentos` no banco de dados e contém todas as informações sobre os tratamentos e intervenções feitos pelos dentistas em pacientes.\n\n#### Atributos Principais:\n\n1. **ID**: Um identificador único gerado automaticamente para cada procedimento registrado no sistema.\n    \n    - Tipo: `Long`\n        \n    - Geração: Automática, utilizando a estratégia de incremento.\n        \n2. **Tipo de Procedimento**: Tipo de procedimento realizado.\n    \n    - Exemplo: \"Limpeza\", \"Extração\", \"Canal\", entre outros.\n        \n    - Regras de validação:\n        \n        - O campo é obrigatório e não pode ser nulo.\n            \n3. **Data do Procedimento**: Data em que o procedimento foi realizado.\n    \n    - Regras de validação:\n        \n        - Obrigatório e não pode ser nulo.\n            \n4. **Custo**: Valor cobrado pelo procedimento.\n    \n    - Regras de validação:\n        \n        - O valor do procedimento deve ser um número positivo e é obrigatório.\n            \n\n#### Relacionamentos:\n\n- Um **procedimento** está associado a um **paciente** e a um **dentista**. Cada procedimento é realizado por um dentista e aplicado a um paciente específico, estabelecendo um relacionamento muitos-para-um com ambas as entidades.\n    \n- O procedimento também pode estar relacionado a um diagnóstico anterior, servindo como intervenção para resolver o problema identificado.\n    \n\n#### Validações:\n\n- A entidade **Procedimento** possui validações utilizando **Jakarta Bean Validation**, garantindo a integridade dos dados fornecidos:\n    \n    - O tipo de procedimento é obrigatório.\n        \n    - A data do procedimento é necessária e deve ser válida.\n        \n    - O custo deve ser um valor positivo e obrigatório.\n        \n\n#### Funcionalidade no Sistema:\n\n- A entidade **Procedimento** gerencia as operações relacionadas aos tratamentos realizados nos pacientes da clínica, como a criação, atualização, listagem e exclusão de procedimentos.\n    \n- Através dessa entidade, o sistema pode rastrear e gerar relatórios sobre os procedimentos mais comuns, custos médios e estatísticas de tratamentos realizados."
+		},
+		{
+			"name": "Sinistro",
+			"item": [
+				{
+					"name": "criarSinistro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"tipoSinistro\": \"Erro de Faturamento\",\n    \"descricao\": \"Cobrança incorreta de procedimentos\",\n    \"dataSinistro\": \"2024-03-15\",\n    \"procedimentoId\": 2,\n    \"dentistaId\": 3,\n    \"pacienteId\": 2,\n    \"riscoFraude\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sinistros",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistros"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarSinistro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sinistros/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistros",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarSinistro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"tipoSinistro\": \"Suspeita de Fraude\",\n    \"descricao\": \"Possível uso indevido dos benefícios\",\n    \"dataSinistro\": \"2024-02-10\",\n    \"procedimentoId\": 1,\n    \"dentistaId\": 3,\n    \"pacienteId\": 1,\n    \"riscoFraude\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sinistros/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistros",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletarSinistro",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sinistros/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sinistros",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "### Entidade **Sinistro**\n\nA classe **Sinistro** representa ocorrências dentro do sistema odontológico que indicam possíveis fraudes ou uso indevido dos serviços. A entidade é mapeada para a tabela `sinistros` no banco de dados e contém informações detalhadas sobre incidentes que resultam em sinistros.\n\n#### Atributos Principais:\n\n1. **ID**: Um identificador único gerado automaticamente para cada sinistro registrado no sistema.\n    \n    - Tipo: `Long`\n        \n    - Geração: Automática, utilizando a estratégia de incremento.\n        \n2. **Tipo de Sinistro**: Tipo do sinistro que ocorreu.\n    \n    - Exemplo: \"Fraude\", \"Uso Indevido\", etc.\n        \n    - Regras de validação:\n        \n        - O campo é obrigatório e descreve a natureza do sinistro.\n            \n3. **Descrição**: Descrição detalhada do sinistro, fornecendo mais informações sobre o incidente.\n    \n    - Regras de validação:\n        \n        - O campo deve conter uma explicação clara do ocorrido.\n            \n4. **Data do Sinistro**: Data em que o sinistro foi identificado.\n    \n    - Regras de validação:\n        \n        - A data do sinistro deve ser uma data válida.\n            \n5. **Risco de Fraude**: Um campo booleano que indica se há suspeita de fraude associada ao sinistro.\n    \n    - Valor: `true` ou `false`.\n        \n\n#### Relacionamentos:\n\n- **Procedimento**: Um sinistro está relacionado a um **procedimento** específico que foi executado e que gerou a suspeita de fraude ou uso indevido.\n    \n- **Dentista**: Um sinistro pode estar associado a um **dentista** específico que realizou o procedimento.\n    \n- **Paciente**: O paciente que foi atendido no procedimento também está relacionado ao sinistro.\n    \n\nEsses relacionamentos são fundamentais para rastrear quem esteve envolvido no incidente e qual procedimento deu origem ao sinistro.\n\n#### Funcionalidade no Sistema:\n\n- A entidade **Sinistro** é utilizada para registrar e monitorar ocorrências que possam comprometer a integridade dos serviços prestados pela clínica, seja por fraude, abuso de serviço ou outro tipo de risco.\n    \n- Através dessa entidade, o sistema pode gerar relatórios sobre sinistros, identificar padrões de risco, além de possibilitar a mitigação e prevenção de futuros sinistros."
+		}
+	]
+}
